@@ -1,0 +1,1 @@
+return MakePlacer("decorationitem_placer", "slingshotammo", "slingshotammo", "idle")
