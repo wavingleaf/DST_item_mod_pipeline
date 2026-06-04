@@ -42,6 +42,29 @@
 
 注释格式不拘，但**每条 debug 驱动的改动**至少包含：遇到的问题 + 为什么当前写法是正确的。
 
+## 组件调用安全规范
+
+DST 中并非所有实体都拥有当前上下文中需要的组件。在调用组件方法之前，**必须先检查该组件是否存在**，否则会因访问 `nil` 的字段而直接导致游戏崩溃。
+
+```lua
+-- ❌ 错误写法：假设 health 组件一定存在
+if inst.components.health:GetPercent() <= 0.5 then
+    -- ...
+end
+
+-- ✅ 正确写法：先检查组件是否存在，短路保护
+if inst.components.health and inst.components.health:GetPercent() <= 0.5 then
+    -- ...
+end
+```
+
+这条规则适用于所有组件访问：
+- 读取属性前检查（`if inst.components.combat then local dmg = inst.components.combat.defaultdamage end`）
+- 调用方法前检查（`if inst.components.inventory then inst.components.inventory:GetEquippedItem(...) end`）
+- 添加组件前先检查是否已存在（如果用 `AddPrefabPostInit`，同一实体可能被多个 mod 重复修改）
+
+写代码时假设"这个实体不一定有我要的组件"，养成习惯。
+
 ## 游戏数据查找纪律
 
 当用户提到游戏内的物品 ID、参数名、中文名时，**禁止凭空猜测、凭记忆推理、或联网搜索**。必须：
