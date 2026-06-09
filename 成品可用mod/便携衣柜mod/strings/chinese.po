@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Language: zh\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT Version: 2.0"
+
+#. STRINGS.NAMES.PORTABLE_WARDROBE_LY
+msgctxt "STRINGS.NAMES.PORTABLE_WARDROBE_LY"
+msgid "Portable Wardrobe"
+msgstr "便携衣柜"
+
+#. STRINGS.NAMES.PORTABLE_WARDROBE_DEPLOYED_LY
+msgctxt "STRINGS.NAMES.PORTABLE_WARDROBE_DEPLOYED_LY"
+msgid "Portable Wardrobe (Deployed)"
+msgstr "便携衣柜(已部署)"
+
+#. STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORTABLE_WARDROBE_LY
+msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORTABLE_WARDROBE_LY"
+msgid "A portable equipment rack. Can be deployed on the ground."
+msgstr "一个便携的装备收纳架，可以部署到地面上。"
+
+#. STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORTABLE_WARDROBE_DEPLOYED_LY
+msgctxt "STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORTABLE_WARDROBE_DEPLOYED_LY"
+msgid "An equipment rack. Right-click to pack up."
+msgstr "一个装备收纳架，右键可以收回。"
+
+#. STRINGS.RECIPE_DESC.PORTABLE_WARDROBE_LY
+msgctxt "STRINGS.RECIPE_DESC.PORTABLE_WARDROBE_LY"
+msgid "Sort your protective gear by weather type!"
+msgstr "按天气类型归类你的防护装备！"
