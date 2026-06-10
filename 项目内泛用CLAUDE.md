@@ -32,6 +32,34 @@
 - **代码注释**：尽可能使用中文撰写，降低读者的语言切换成本
 - 引用游戏引擎中的固有术语时保留英文原文（如 `modmain.lua`、`AddPrefabPostInit`、`TUNING`）
 
+## 自定义文件命名规范
+
+在 Mod 中新增的 Lua 文件**必须使用细粒度、较长的名称**，避免与以下对象发生命名冲突：
+
+- 原版 DST 的同名文件
+- 其他 Mod 的同名文件
+- 本项目内不同功能模块
+
+三层命名格式：`<Mod特征前缀>_<功能描述>_<作者标记>.lua`
+
+| 层级 | 示例 | 防护范围 |
+|------|------|----------|
+| Mod 特征前缀 | `portable_wardrobe_` | 不与其他 Mod 同名 |
+| 功能描述 | `container_params` | 同 Mod 内不重名 |
+| 作者标记 | `_ly` | 不与原版同名 |
+
+```lua
+// ❌ 高危：简短泛名
+-- scripts/containers.lua       → 与原版同名，循环依赖
+-- scripts/util.lua             → 与原版同名 + 可能与任何 Mod 冲突
+
+// ✅ 安全：细粒度长名
+-- scripts/portable_wardrobe_container_params_ly.lua
+-- scripts/prefabs/portable_wardrobe_ly.lua
+```
+
+此规范适用于所有自定义 Lua 文件，包括 `modimport()` 引入的脚本和 Prefab 文件。
+
 ## 改动缘由记录
 
 当代码发生修改时，注释应说明**为什么这样改**，特别是：
@@ -42,28 +70,42 @@
 
 注释格式不拘，但**每条 debug 驱动的改动**至少包含：遇到的问题 + 为什么当前写法是正确的。
 
-## 组件调用安全规范
+## 实体字段/组件调用安全规范
 
-DST 中并非所有实体都拥有当前上下文中需要的组件。在调用组件方法之前，**必须先检查该组件是否存在**，否则会因访问 `nil` 的字段而直接导致游戏崩溃。
+DST 中并非所有实体都拥有当前上下文中需要的字段或组件。在调用之前，**必须先检查其是否存在**，否则会因访问 `nil` 的字段而直接导致游戏崩溃。
+
+这条规则不仅适用于 `inst.components.xxx`，同样适用于：
+- `inst.Physics` — 只有调了 `MakeInventoryPhysics(inst)` 的实体才有，地面结构物没有
+- `inst.replica.xxx` — 只有客户端实体有 replica
+- 全局函数如 `PreventCharacterCollisionsWithPlacedObjects(inst)` — 内部可能访问 inst 的字段
 
 ```lua
--- ❌ 错误写法：假设 health 组件一定存在
+-- ❌ 错误：假设 Physics 一定存在
+deployed.Physics:Teleport(pt.x, 0, pt.z)
+
+-- ✅ 正确：先检查，或用 Transform:SetPosition 替代
+deployed.Transform:SetPosition(pt.x, 0, pt.z)
+```
+
+```lua
+-- ❌ 错误：假设 health 组件一定存在
 if inst.components.health:GetPercent() <= 0.5 then
     -- ...
 end
 
--- ✅ 正确写法：先检查组件是否存在，短路保护
+-- ✅ 正确：先检查组件是否存在，短路保护
 if inst.components.health and inst.components.health:GetPercent() <= 0.5 then
     -- ...
 end
 ```
 
-这条规则适用于所有组件访问：
+这条规则适用于所有字段/组件访问：
 - 读取属性前检查（`if inst.components.combat then local dmg = inst.components.combat.defaultdamage end`）
-- 调用方法前检查（`if inst.components.inventory then inst.components.inventory:GetEquippedItem(...) end`）
+- 调用方法前检查（`if inst.Physics then inst.Physics:Teleport(...) end`）
+- 调用全局函数前确认目标实体类型（结构物不走 `PreventCharacterCollisionsWithPlacedObjects`）
 - 添加组件前先检查是否已存在（如果用 `AddPrefabPostInit`，同一实体可能被多个 mod 重复修改）
 
-写代码时假设"这个实体不一定有我要的组件"，养成习惯。
+写代码时假设"这个实体不一定有我要的字段/组件"，养成习惯。
 
 ## 游戏数据查找纪律
 
