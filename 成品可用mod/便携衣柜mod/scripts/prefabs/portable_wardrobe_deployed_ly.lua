@@ -21,13 +21,13 @@
 -- -----------------------------------------------------------------------
 local assets =
 {
-    -- 衣柜动画（地面家具形态显示为缩小的衣柜）
-    -- 衣柜原生动画集：closed / open / close / hit / place / active / cancel
-    Asset("ANIM", "anim/wardrobe.zip"),
+    -- 自有动画：closed=关门闲置, open=开门, cancel=关门（无 hit / place 动画）
+    Asset("ANIM", "anim/portable_wardrobe_ly.zip"),
     -- 占位 UI 动画：借用 chest 3×3（只用上 2 行 = 3列×2行）
     Asset("ANIM", "anim/ui_chest_3x3.zip"),
-    -- 占位图集（与物品版共享，仅含 wardrobe.tex）
-    Asset("ATLAS", "images/inventoryimages.xml"),
+    -- 物品栏图标图集（地面版虽无 inventoryitem，但配方系统仍需要此图集）
+    Asset("ATLAS", "images/inventoryimages/portable_wardrobe_ly_inv.xml"),
+    Asset("IMAGE", "images/inventoryimages/portable_wardrobe_ly_inv.tex"),
 }
 
 local prefabs =
@@ -154,18 +154,16 @@ end
 
 local function OnHit(inst, worker)
     if not inst:HasTag("burnt") then
-        -- 衣柜原生 "hit" 动画（受击抖动）
-        inst.AnimState:PlayAnimation("hit")
-        inst.AnimState:PushAnimation("closed", false)
+        -- 无 hit 动画（自有动画只有 closed/open/cancel），锤击时保持 closed
+        inst.AnimState:PlayAnimation("closed")
     end
 end
 
 -- -----------------------------------------------------------------------
--- 放置完成回调（衣柜原生 "place" 动画）
+-- 放置完成回调（无 place 动画，直接显示关门态 + 放置音效）
 -- -----------------------------------------------------------------------
 local function onbuilt(inst)
-    inst.AnimState:PlayAnimation("place")
-    inst.AnimState:PushAnimation("closed", false)
+    inst.AnimState:PlayAnimation("closed")    -- 无 place 动画，直接用 closed
     inst.SoundEmitter:PlaySound(SOUNDS.built)
 end
 
@@ -222,9 +220,9 @@ local function fn()
     -- 标签：结构物
     inst:AddTag("structure")
 
-    -- 动画：衣柜 bank/build（缩小的地面衣柜）
-    inst.AnimState:SetBank("wardrobe")
-    inst.AnimState:SetBuild("wardrobe")
+    -- 动画：自有 bank/build，含 closed/open/cancel 三个单帧
+    inst.AnimState:SetBank("portable_wardrobe_ly")
+    inst.AnimState:SetBuild("portable_wardrobe_ly")
     inst.AnimState:PlayAnimation("closed")
 
     MakeSnowCoveredPristine(inst)

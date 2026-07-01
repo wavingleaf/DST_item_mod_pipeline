@@ -20,14 +20,15 @@ require "prefabutil"    -- 提供 MakePlacer 等工具函数
 -- -----------------------------------------------------------------------
 local assets =
 {
-    -- 衣柜动画（物品栏形态浮在地面上时显示为缩小的衣柜）
-    Asset("ANIM", "anim/wardrobe.zip"),
+    -- 自有动画：closed=关门闲置, open=开门, cancel=关门
+    Asset("ANIM", "anim/portable_wardrobe_ly.zip"),
     -- 占位 UI 动画：借用 chest 3×3（只用上 2 行 = 3列×2行）
     -- 后续替换为 ui_wardrobe_2x3.zip
     Asset("ANIM", "anim/ui_chest_3x3.zip"),
-    -- 占位图集：仅含 wardrobe.tex 一个元素，指向 inventoryimages.tex 大图
-    -- 后续自定义图标后替换为自有图集
-    Asset("ATLAS", "images/inventoryimages.xml"),
+    -- 自有物品栏图标
+    -- ATLAS: 图集描述 XML；IMAGE: 纹理 TEX 本体（两者缺一不可）
+    Asset("ATLAS", "images/inventoryimages/portable_wardrobe_ly_inv.xml"),
+    Asset("IMAGE", "images/inventoryimages/portable_wardrobe_ly_inv.tex"),
 }
 
 local prefabs =
@@ -61,9 +62,8 @@ local function OnDeploy(inst, pt, deployer)
     -- 定位到部署点（地面版是结构物，没有 Physics 组件，用 Transform 即可）
     deployed.Transform:SetPosition(pt.x, 0, pt.z)
 
-    -- 播放放置动画和音效
-    deployed.AnimState:PlayAnimation("place")
-    deployed.AnimState:PushAnimation("closed", false)
+    -- 无 place 动画（自有动画集仅含 closed/open/cancel），直接显示关门态
+    deployed.AnimState:PlayAnimation("closed")
     deployed.SoundEmitter:PlaySound(SOUNDS.built)
 
     -- 逐槽转移容器内容
@@ -148,11 +148,9 @@ local function fn()
     -- 物理：物品可被捡起的大小
     MakeInventoryPhysics(inst)
 
-    -- 动画：使用衣柜 bank/build，显示为闭合状态的缩小衣柜
-    -- 衣柜原生动画集：closed / open / close / hit / place / active / cancel
-    -- 物品形态仅需 closed（浮在地面时）和 place（部署时由新版播放）
-    inst.AnimState:SetBank("wardrobe")
-    inst.AnimState:SetBuild("wardrobe")
+    -- 动画：自有 bank/build，在地上时显示关门态
+    inst.AnimState:SetBank("portable_wardrobe_ly")
+    inst.AnimState:SetBuild("portable_wardrobe_ly")
     inst.AnimState:PlayAnimation("closed")
 
     -- 不设 portablestorage 标签：带此标签的容器在 RUMMAGE 动作时
@@ -168,7 +166,7 @@ local function fn()
     -- "small" 尺寸，弹跳幅度 0.15
     MakeInventoryFloatable(inst, "small", 0.15,
         nil, nil, nil,
-        { bank = "wardrobe", anim = "closed" })  -- swap_data：浮动时用衣柜 closed 态
+        { bank = "portable_wardrobe_ly", anim = "closed" })  -- swap_data：浮动时显示关门态
 
     -- Pristine 分界线：以下代码仅服务端执行
     inst.entity:SetPristine()
@@ -183,9 +181,9 @@ local function fn()
     inst:AddComponent("inventoryitem")
     -- atlasname → resolvefilepath 查找（见 inventoryitem_replica.lua:159-160）
     -- imagename → 客户端 SetImage 追加 ".tex"（inventoryitem_replica.lua:132）
-    -- 故 imagename 填 "wardrobe" 而非 "wardrobe.tex"
-    inst.components.inventoryitem.atlasname = "images/inventoryimages.xml"
-    inst.components.inventoryitem.imagename = "wardrobe"
+    -- 故 imagename 填 "portable_wardrobe_ly_inv" 而非 "portable_wardrobe_ly_inv.tex"
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/portable_wardrobe_ly_inv.xml"
+    inst.components.inventoryitem.imagename = "portable_wardrobe_ly_inv"
 
     -- ── 容器 ──
     -- WidgetSetup 会从 containers.params["portable_wardrobe_ly"] 读取配置
@@ -239,4 +237,4 @@ end
 
 return Prefab("portable_wardrobe_ly", fn, assets, prefabs),
     -- 部署预览器：放置时显示衣柜的半透明预览
-    MakePlacer("portable_wardrobe_ly_placer", "wardrobe", "wardrobe", "closed")
+    MakePlacer("portable_wardrobe_ly_placer", "portable_wardrobe_ly", "portable_wardrobe_ly", "closed")

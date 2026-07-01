@@ -38,8 +38,8 @@ local wardrobe_recipe = AddRecipe2(
         -- 配方栏图标：借用 wardrobe.tex（原版衣柜图标），图集文件已放置到 images/
         -- resolvefilepath 在 mod 加载时搜索 package.assetpath，mod 目录在搜索路径中
         -- Asset("ATLAS", ...) 在 prefab 中声明，运行时引擎能找到纹理
-        atlas = "images/inventoryimages.xml",
-        image = "wardrobe.tex",
+        atlas = "images/inventoryimages/portable_wardrobe_ly_inv.xml",
+        image = "portable_wardrobe_ly_inv.tex",
     }
 )
 

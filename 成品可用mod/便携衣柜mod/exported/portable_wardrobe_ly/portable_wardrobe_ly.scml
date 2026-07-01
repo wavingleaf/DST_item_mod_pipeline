@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="b5">
+    <folder id="0" name="sprites">
+        <file id="0" name="sprites/closed.png" width="1224" height="1024" pivot_x="0.5" pivot_y="1.0"/>
+        <file id="1" name="sprites/open.png" width="1224" height="1024" pivot_x="0.5" pivot_y="1.0"/>
+    </folder>
+    <entity id="0" name="portable_wardrobe_ly">
+        <animation id="0" name="closed" length="30">
+            <mainline><key id="0" time="0"><object_ref id="0" name="cs" timeline="0" key="0" z_index="0"/></key></mainline>
+            <timeline id="0" name="cs"><key id="0" time="0" spin="1"><object folder="0" file="0" x="0" y="400" angle="0" scale_x="0.5" scale_y="0.5"/></key></timeline>
+        </animation>
+        <animation id="1" name="hit" length="30">
+            <mainline><key id="0" time="0"><object_ref id="0" name="hs" timeline="1" key="0" z_index="0"/></key></mainline>
+            <timeline id="1" name="hs"><key id="0" time="0" spin="1"><object folder="0" file="0" x="0" y="400" angle="0" scale_x="0.5" scale_y="0.5"/></key></timeline>
+        </animation>
+        <animation id="2" name="place" length="30">
+            <mainline><key id="0" time="0"><object_ref id="0" name="ps" timeline="2" key="0" z_index="0"/></key></mainline>
+            <timeline id="2" name="ps"><key id="0" time="0" spin="1"><object folder="0" file="0" x="0" y="400" angle="0" scale_x="0.5" scale_y="0.5"/></key></timeline>
+        </animation>
+        <animation id="3" name="open" length="30">
+            <mainline><key id="0" time="0"><object_ref id="0" name="os" timeline="3" key="0" z_index="0"/></key></mainline>
+            <timeline id="3" name="os"><key id="0" time="0" spin="1"><object folder="0" file="1" x="0" y="400" angle="0" scale_x="0.5" scale_y="0.5"/></key></timeline>
+        </animation>
+        <animation id="4" name="cancel" length="30">
+            <mainline><key id="0" time="0"><object_ref id="0" name="xs" timeline="4" key="0" z_index="0"/></key></mainline>
+            <timeline id="4" name="xs"><key id="0" time="0" spin="1"><object folder="0" file="0" x="0" y="400" angle="0" scale_x="0.5" scale_y="0.5"/></key></timeline>
+        </animation>
+    </entity>
+</spriter_data>
