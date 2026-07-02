@@ -3,9 +3,9 @@
 -- ============================================================
 
 name = "便携衣柜"
-description = "一个可随身携带的装备收纳容器。2行3列，按头部/身体和保暖/防水/隔热分类收纳，可部署到地面作为建筑。非常缺美术资源。"
+description = "随身的装备收纳架。3×3格子，按头/身和保暖/防水/隔热分类，可部署到地面。永鲜保鲜，方便花衬衫、冰帽等新鲜度装备。"
 author = ""
-version = "0.1.0"
+version = "0.2.0"
 
 api_version = 10
 dst_compatible = true
@@ -24,4 +24,17 @@ icon = "modicon.tex"
 
 server_filter_tags = {"物品", "容器"}
 
-configuration_options = {}
+configuration_options =
+{
+    {
+        name = "ETERNAL_FRESH",
+        label = "永鲜",
+        hover = "永鲜保鲜，方便花衬衫、冰帽等新鲜度装备。",
+        options =
+        {
+            { description = "开启（默认）", data = true },
+            { description = "关闭", data = false },
+        },
+        default = true,
+    },
+}

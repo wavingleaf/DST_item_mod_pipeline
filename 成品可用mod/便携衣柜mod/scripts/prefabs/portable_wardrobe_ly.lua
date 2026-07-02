@@ -22,11 +22,9 @@ local assets =
 {
     -- 自有动画：closed=关门闲置, open=开门, cancel=关门
     Asset("ANIM", "anim/portable_wardrobe_ly.zip"),
-    -- 占位 UI 动画：借用 chest 3×3（只用上 2 行 = 3列×2行）
-    -- 后续替换为 ui_wardrobe_2x3.zip
+    -- UI 背景动画（引用游戏内置，通常不会被其他 Mod 覆盖）
     Asset("ANIM", "anim/ui_chest_3x3.zip"),
     -- 自有物品栏图标
-    -- ATLAS: 图集描述 XML；IMAGE: 纹理 TEX 本体（两者缺一不可）
     Asset("ATLAS", "images/inventoryimages/portable_wardrobe_ly_inv.xml"),
     Asset("IMAGE", "images/inventoryimages/portable_wardrobe_ly_inv.tex"),
 }
