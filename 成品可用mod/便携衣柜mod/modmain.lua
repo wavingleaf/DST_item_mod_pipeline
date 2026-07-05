@@ -109,10 +109,13 @@ GLOBAL.STRINGS.NAMES.PORTABLE_WARDROBE_DEPLOYED_LY = "便携衣柜(已部署)"
 -- 检查描述
 GLOBAL.STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORTABLE_WARDROBE_LY =
 {
-    GENERIC = "一个便携的装备收纳架，可以部署到地面上。",
+    GENERIC = "按头/身和保暖/防水/隔热分类收纳装备，可部署到地面。内部永鲜。",
 }
 
 GLOBAL.STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORTABLE_WARDROBE_DEPLOYED_LY =
 {
     GENERIC = "一个装备收纳架，右键可以收回。",
 }
+
+-- 配方描述（制作栏中鼠标悬停时显示）
+GLOBAL.STRINGS.RECIPE_DESC.PORTABLE_WARDROBE_LY = "随身应季衣柜，新鲜度装备在其中永鲜。"

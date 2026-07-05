@@ -34,7 +34,7 @@ end
 -- 槽位背景图标（slotbg）
 --
 -- 装饰行用原版科技栏分类图标（filter_winter/filter_rain/filter_summer），
--- 物品行用原版装备栏图标（equip_slot_head_hud / equip_slot_body_hud）。
+-- 物品行用原版装备栏图标（equip_slot_head / equip_slot_body）。
 -- 引用原版游戏内置图集。
 -- 若其他 Mod 修改了这些图集，槽位背景可能受影响，但概率极低。
 -- -----------------------------------------------------------------------
