@@ -1,0 +1,26 @@
+Debug: 
+Building project 'chen_alarm'...
+Debug: Building project Q:\sound\chen_alarm.fev...
+Debug: Unique sound defs 1/3
+Debug: Retrieving sound file info...
+Debug: Retrieving reverb info...
+Debug: FEV file written ok
+Debug: Unique Envelope Points: 0 of 0
+Debug: Unique Strings: 161 characters of 161
+Debug: Caching sound file details for ''...
+Debug: ..\..\..\..\no_chinese_char_for_dst_mod_upload\chen_alarm\dang.wav
+Debug: ..\..\..\..\no_chinese_char_for_dst_mod_upload\chen_alarm\duan.wav
+Debug: ..\..\..\..\no_chinese_char_for_dst_mod_upload\chen_alarm\po.wav
+Debug: Building 'chen_alarm.fsb'
+Debug: Encoded D:\no_chinese_char_for_dst_mod_upload\chen_alarm\..\..\..\..\no_chinese_char_for_dst_mod_upload\chen_alarm\duan.wav
+Debug: Encoded D:\no_chinese_char_for_dst_mod_upload\chen_alarm\..\..\..\..\no_chinese_char_for_dst_mod_upload\chen_alarm\dang.wav
+Debug: Encoded D:\no_chinese_char_for_dst_mod_upload\chen_alarm\..\..\..\..\no_chinese_char_for_dst_mod_upload\chen_alarm\po.wav
+Debug: Writing FSB...
+Debug: Finished building FSB
+Debug: 
+Debug: 
+Summary of build:
+SUCCESS: Q:/sound/chen_alarm.fev
+SUCCESS: chen_alarm.fsb
+Debug: Information : FMOD Designer : Build finished.  Took 00:00:00
+

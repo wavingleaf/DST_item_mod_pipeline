@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="b5">
+	<!--
+	小陈闹钟动画定义
+	- entity name = chen_alarm_ly → SetBank("chen_alarm_ly")
+	- scml 文件名 = chen_alarm_ly → SetBuild("chen_alarm_ly")
+	- pivot_x=0.5 pivot_y=1.0 → 底部居中锚点（地面结构物标准）
+	- y=200 → 推高 sprite，使底部对齐地面
+	- music 动画用 squash & stretch 制造 Q 弹感
+	-->
+	<folder id="0" name="sprites">
+		<file id="0" name="sprites/0.png" width="256" height="256" pivot_x="0.5" pivot_y="1.0"/>
+	</folder>
+	<entity id="0" name="chen_alarm_ly">
+		<animation id="0" name="idle" length="30">
+			<mainline><key id="0" time="0"><object_ref id="0" name="is" timeline="0" key="0" z_index="0"/></key></mainline>
+			<timeline id="0" name="is"><key id="0" time="0" spin="1"><object folder="0" file="0" x="0" y="200" angle="0" scale_x="0.8" scale_y="0.8"/></key></timeline>
+		</animation>
+		<animation id="1" name="music" length="400">
+			<mainline>
+				<key id="0" time="0"><object_ref id="0" name="ms" timeline="1" key="0" z_index="0"/></key>
+				<key id="1" time="100"><object_ref id="0" name="ms" timeline="1" key="1" z_index="0"/></key>
+				<key id="2" time="200"><object_ref id="0" name="ms" timeline="1" key="2" z_index="0"/></key>
+				<key id="3" time="300"><object_ref id="0" name="ms" timeline="1" key="3" z_index="0"/></key>
+				<key id="4" time="400"><object_ref id="0" name="ms" timeline="1" key="4" z_index="0"/></key>
+			</mainline>
+			<timeline id="1" name="ms">
+				<!-- 0ms:  初始态 -->
+				<key id="0" time="0" spin="1"><object folder="0" file="0" x="0" y="200" angle="0" scale_x="0.8" scale_y="0.8"/></key>
+				<!-- 100ms: 压扁 + 微右倾（squash: 宽变宽、高变矮） -->
+				<key id="1" time="100" spin="1"><object folder="0" file="0" x="0" y="180" angle="-3" scale_x="0.9" scale_y="0.7"/></key>
+				<!-- 200ms: 拉长 + 微左倾（stretch: 变窄变高 + 向上弹） -->
+				<key id="2" time="200" spin="1"><object folder="0" file="0" x="0" y="220" angle="3" scale_x="0.72" scale_y="0.88"/></key>
+				<!-- 300ms: 轻微回弹（overshoot 修正） -->
+				<key id="3" time="300" spin="1"><object folder="0" file="0" x="0" y="195" angle="-1" scale_x="0.82" scale_y="0.78"/></key>
+				<!-- 400ms: 回到 idle -->
+				<key id="4" time="400" spin="1"><object folder="0" file="0" x="0" y="200" angle="0" scale_x="0.8" scale_y="0.8"/></key>
+			</timeline>
+		</animation>
+	</entity>
+</spriter_data>
